@@ -1,16 +1,19 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-const int MAX_ = 1e5 + 1;
+const int MAX_ = 1e4 + 1;
 int n, m;
 int X[MAX_];
 int Y[MAX_];
-vector<vector<int>> dp;
+int dp[MAX_][MAX_];
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     cin >> n >> m;
-    dp.resize(n + 1);
+
     for (int i = 1; i <= n; i++)
     {
         cin >> X[i];
@@ -18,10 +21,6 @@ int main()
     for (int i = 1; i <= m; i++)
     {
         cin >> Y[i];
-    }
-    for (int i = 0; i <= n; i++)
-    {
-        dp[i].resize(m + 1, 0);
     }
     for (int i = 1; i <= n; i++)
     {

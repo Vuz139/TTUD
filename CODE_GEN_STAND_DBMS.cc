@@ -5,40 +5,33 @@ using namespace std;
 const int max_case = 1e6;
 
 int n, L;
-int a[max_case];
-string key;
-void gen(int x)
+string prefixs[50];
+void compute()
 {
-    for (int j = L - 1; j >= 0; j--)
+    prefixs[0] = "0";
+    for (int i = 1; i < 50; i++)
     {
-        int p = pow(10, j);
-        int temp = x % p;
-        x /= p;
-        if (temp < 0)
-            break;
-        cout << temp << endl;
-        key[j] = (char)temp;
+        prefixs[i] = "0" + prefixs[i - 1];
     }
-    cout << key << endl;
 }
-
 void solve()
 {
     cin >> n >> L;
-    key.resize(L, '0');
-
+    compute();
+    string temp;
     for (int i = 0; i < n; i++)
     {
-        cin >> a[i];
-    }
-    for (int i = 0; i < n; i++)
-    {
-        gen(a[i]);
+        cin >> temp;
+        if (temp.length() < L)
+        {
+            cout << prefixs[L - temp.length() - 1];
+        }
+        cout << temp << endl;
     }
 }
 
 int main()
 {
-    freopen("input.inp", "r", stdin);
+    // freopen("input.inp", "r", stdin);
     solve();
 }
