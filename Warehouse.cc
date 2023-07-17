@@ -2,65 +2,46 @@
 
 using namespace std;
 
-const int MAX_ = 1e3 + 1;
-
-struct node
-{
-    int a;
-    int t;
-    float m;
-    node(int x, int y)
-    {
-        a = x;
-        t = y;
-        m = x * 1.0 / y;
-    }
-};
-
-bool compare(const node &a, const node &b)
-{
-    return a.m > b.m;
-}
-
 int n, T, D;
-vector<node> stations;
+int a[101];
+int t[101];
+int dp[101][101]; // dp[i][j] là max trong i điểm đầu tiên và dùng j thời gian
+int res_ = -1;
 
 void solve()
 {
     cin >> n >> T >> D;
-    stations.resize(n);
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        cin >> stations[i].a;
+        cin >> a[i];
     }
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        cin >> stations[i].t;
+        cin >> t[i];
     }
-    for (int i = 0; i < n; i++)
+    for (int i = 1; i <= n; i++)
     {
-        stations[i].m = stations[i].a * 1.0 / stations[i].t;
-    }
-    vector<node> dp(n);
-    int visited[n];
-    int curr_max_d = 0;
-    for (int i = 1; i < D; i++)
-    {
-        if (stations[curr_max_d].m < stations[i].m)
+        dp[i][t[i]] = a[i];
+        res_ = max(res_, dp[i][t[i]]);
+        for (int j = 1; j <= D; j++)
         {
-            curr_max_d = i;
+            if (i > j)
+            {
+                int b = i - j;
+                for (int k = 1; k <= T - t[i]; k++)
+                {
+                    if (dp[b][k] > 0)
+                    {
+                        dp[i][k + t[i]] = max(dp[b][k] + a[i], dp[i][k + t[i]]);
+                        res_ = max(res_, dp[i][k + t[i]]);
+                    }
+                }
+            }
         }
     }
-    visited[curr_max_d] = 1;
-    dp[]
-
-        for (int i = 1; i < D; i++)
-    {
-    }
+    cout << res_ << endl;
 }
-
 int main()
 {
-    freopen("input.inp", "r", stdin);
     solve();
 }
