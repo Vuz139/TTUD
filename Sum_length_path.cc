@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef pair<int, int> int_pair;
 int n;
 vector<vector<int>> w;
 vector<vector<int>> gr;
@@ -13,7 +12,7 @@ void dfs(int i, int node, int p)
         if (p != v && !gr[i][v])
         {
             gr[i][v] = gr[node][v] + gr[i][node];
-            gr[v][i] = gr[i][v];
+            // gr[v][i] = gr[i][v];
             dfs(i, v, node);
         }
     }
@@ -21,6 +20,9 @@ void dfs(int i, int node, int p)
 
 int main()
 {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
     freopen("input.inp", "r", stdin);
     cin >> n;
     gr.resize(n + 1);
@@ -54,9 +56,10 @@ int main()
         sum = 0;
         for (int j = 1; j <= n; j++)
         {
-
+            cout << gr[i][j] << " ";
             sum += gr[i][j];
         }
+        cout << endl;
 
         max_sum = max(max_sum, sum);
     }

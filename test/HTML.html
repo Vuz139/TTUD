@@ -8,14 +8,23 @@
 	<body>
 		<div id="div2">I am Dive2</div>
 		<script>
-			// function logUserName() {
-			// 	return this.name;
-			// }
-			// const user = { name: "NguyenVanAn" };
-			// logUserName.call(user);
-			const obj = { a: 1, b: 2, c: 3, d: 4 };
-			const { a1: a, b1: b, ...r1 } = obj;
-			console.log(r1);
+			function Car(name, type) {
+				this.name = name;
+				this.type = type;
+				this.getCar = function (name = this.name, type = this.type) {
+					console.log(`${this.name} ${this.type}`);
+				};
+			}
+
+			const car = new Car("MESSAGE", "MES");
+			car.getCar();
+			const vinF = {
+				name: "VINFASt",
+				type: "VIN",
+			};
+
+			vinF.getCar = car.getCar.bind(car);
+			vinF.getCar();
 		</script>
 	</body>
 </html>

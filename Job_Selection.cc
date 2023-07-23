@@ -4,39 +4,54 @@ using namespace std;
 
 const int MAX_ = 1e5 + 1;
 
-int n;
-int d[MAX_];
-int p[MAX_];
-vector<double> pd;
+struct Job
+{
+    int deadline;
+    int profit;
+};
 
+int n;
+vector<Job> jobs;
+vector<bool> filled;
 void greedy()
 {
+    int result = 0;
+    for (Job j : jobs)
+    {
+        for (int jj = min(j.deadline, n) - 1; jj >= 0; jj--)
+        {
+            if (!filled[jj])
+            {
+                filled[jj] = true;
+                result += j.profit;
+                break;
+            }
+        }
+    }
+    cout << result << endl;
 }
-bool compare(double &x, double &y)
+bool compare(Job &x, Job &y)
 {
-    return x > y;
+    return x.profit > y.profit;
 }
 
 void solve()
 {
     cin >> n;
-    pd.resize(n + 1);
+    jobs.resize(n + 1);
+    filled.resize(n + 1, false);
     for (int i = 0; i < n; i++)
     {
-        cin >> d[i] >> p[i];
+        cin >> jobs[i].deadline;
+        cin >> jobs[i].profit;
     }
-    for (int i = 0; i < n; i++)
-    {
-        pd[i] = p[i] * 1.0 / d[i];
-    }
-    sort(pd.begin(), pd.end(), compare);
-    for (int i = 0; i < n; i++)
-    {
-        cout << pd[i] << ' ';
-    }
+
+    sort(jobs.begin(), jobs.begin() + n, compare);
+
+    greedy();
 }
 int main()
 {
-    freopen("input.inp", "r", stdin);
+    // freopen("input.inp", "r", stdin);
     solve();
 }

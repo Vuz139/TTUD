@@ -4,27 +4,65 @@ using namespace std;
 typedef pair<int, int> int_pair;
 int n;
 vector<vector<pair<int, int>>> g;
-
-int dfs(int node, int parent)
+vector<int> d;
+vector<int> parent;
+void bfs(int node)
 {
+    d[node] = 0;
 
-    int max_len = 0;
-    for (int_pair v : g[node])
+    queue<int> q;
+    q.push(node);
+    while (!q.empty())
     {
-        if (v.first != parent)
+        int top = q.front();
+        q.pop();
+        for (int_pair pp : g[top])
         {
-            int w = v.second + dfs(v.first, node);
-            max_len = max(w, max_len);
+            int x = pp.first;
+
+            if (d[x] > 0)
+            {
+                // if (parent[top] == x)
+                // {
+                //     // cout << "FALSE" << endl;
+                continue;
+                // }
+            }
+            int w = pp.second;
+            q.push(x);
+            d[x] = d[top] + w;
+            parent[x] = top;
         }
     }
-    longest_at[node] = max_len;
-    return max_len;
+}
+
+int findMax()
+{
+    int u = 0;
+    int max_ = -1;
+    for (int i = 1; i <= n; i++)
+    {
+        if (max_ < d[i])
+        {
+            max_ = d[i];
+            u = i;
+        }
+    }
+    return u;
+}
+
+void init()
+{
+    fill(d.begin(), d.end(), 0);
+    fill(parent.begin(), parent.end(), -1);
 }
 
 void solve()
 {
     cin >> n;
     g.resize(n + 1);
+    d.resize(n + 1, 0);
+    parent.resize(n + 1, -1);
     int u, v, w;
 
     for (int i = 1; i < n; i++)
@@ -34,14 +72,16 @@ void solve()
         g[v].push_back(make_pair(u, w));
     }
 
-    int max_dis = -1;
-
-    max_dis = max(max_dis, dfs(i, -1));
-
-    cout << max_dis << endl;
+    bfs(1);
+    int uu = findMax();
+    init();
+    bfs(uu);
+    uu = findMax();
+    cout << d[uu];
 }
 int main()
 {
+    freopen("input.inp", "r", stdin);
     solve();
     return 1;
 }

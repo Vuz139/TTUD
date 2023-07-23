@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug C++",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.exe", // Đường dẫn tới tệp thực thi (main.exe cho Windows)
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "externalConsole": true,
+            "preLaunchTask": "build" // Tên task để build chương trình trước khi debug
+        }
+    ]
+}
