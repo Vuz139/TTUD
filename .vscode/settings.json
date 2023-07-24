@@ -1,4 +1,18 @@
+// {
+//     "cmake.configureOnOpen": false,
+//     "C_Cpp.errorSquiggles": "disabled"
+// }
+
 {
-    "cmake.configureOnOpen": false,
-    "C_Cpp.errorSquiggles": "disabled"
-}
+    "files.exclude": {
+      "**/*.exe": true, // Exclude compiled executables from file explorer
+      "**/*.o": true,   // Exclude object files from file explorer
+      "**/*.obj": true
+    },
+    "c-cpp-flylint.clang-tidy": true, // Enable clang-tidy for C/C++ code analysis
+    "c-cpp-flylint.clang-diagnostic": true, // Enable clang-diagnostic for C/C++ code analysis
+    "c-cpp-flylint.clang-format": true, // Enable clang-format for C/C++ code formatting
+    "editor.tabSize": 4, // Set tab size to 4 spaces
+    "editor.insertSpaces": true // Use spaces instead of tabs
+  }
+  

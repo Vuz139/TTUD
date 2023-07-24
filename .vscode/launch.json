@@ -1,16 +1,42 @@
+// {
+//     "version": "0.2.0",
+//     "configurations": [
+//         {
+//             "name": "Debug C++",
+//             "type": "cppdbg",
+//             "request": "launch",
+//             "program": "${workspaceFolder}/main.exe", // Đường dẫn tới tệp thực thi (main.exe cho Windows)
+//             "args": [],
+//             "stopAtEntry": false,
+//             "cwd": "${workspaceFolder}",
+//             "externalConsole": true,
+//             "preLaunchTask": "build" // Tên task để build chương trình trước khi debug
+//         }
+//     ]
+// }
+
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Debug C++",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/main.exe", // Đường dẫn tới tệp thực thi (main.exe cho Windows)
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "externalConsole": true,
-            "preLaunchTask": "build" // Tên task để build chương trình trước khi debug
-        }
-    ]
-}
+   "version": "0.2.0",
+   "configurations": [
+     {
+       "name": "C++ Debug",
+       "type": "cppdbg",
+       "request": "launch",
+       "program": "${fileDirname}/${fileBasenameNoExtension}", // The path to the compiled executable
+       "args": [],
+       "stopAtEntry": false,
+       "cwd": "${fileDirname}", // The working directory for debugging
+       "environment": [],
+       "externalConsole": true,
+       "MIMode": "gdb",
+       "setupCommands": [
+         {
+           "description": "Enable pretty-printing for gdb",
+           "text": "-enable-pretty-printing",
+           "ignoreFailures": true
+         }
+       ]
+     }
+   ]
+ }
+ 

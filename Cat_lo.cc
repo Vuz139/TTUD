@@ -28,4 +28,5 @@ int main()
 {
     freopen("input.inp", "r", stdin);
     solve();
+    return 1;
 }

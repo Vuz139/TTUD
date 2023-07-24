@@ -1,5 +1,13 @@
+// {
+//     "recommendations": [
+//        
+//     ]
+// }
+
 {
     "recommendations": [
-        "virejdasani.incredibly-in-your-face"
+      "ms-vscode.cpptools", // C/C++ extension
+      "username.extensionname" // Additional extension you want to recommend
     ]
-}
+  }
+  
