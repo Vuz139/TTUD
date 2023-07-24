@@ -39,10 +39,10 @@ void solve()
     {
         insert_to_bTree(prices[i], 0);
     }
-    cout << min_loss;
+    cout << min_loss << endl;
 }
 int main()
 {
-    freopen("input.inp", "r", stdin);
+    // freopen("input.inp", "r", stdin);
     solve();
 }
