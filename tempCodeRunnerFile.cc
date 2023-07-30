@@ -1,64 +1,95 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-typedef pair<int, int> int_pair;
-int n;
-vector<vector<int>> w;
-vector<vector<int>> gr;
-
-void dfs(int i, int node, int p)
+int n, m;
+vector<int> parent;
+vector<int> rank_;
+int find(int u)
 {
-    for (int v : w[node])
+    if (parent[u] != u)
+        parent[u] = find(parent[u]);
+
+    return parent[u];
+}
+
+// Union of two sets by rank
+void merge(int u, int v)
+{
+    u = find(u);
+    v = find(v);
+
+    if (rank_[u] > rank_[v])
+        parent[v] = u;
+    else
+        parent[u] = v;
+
+    if (rank_[u] == rank_[v])
+        ++rank_[v];
+}
+void init()
+{
+    parent.resize(n + 1);
+    rank_.resize(n + 1, 0);
+    for (int i = 0; i <= n; i++)
     {
-        if (p != v && !gr[i][v])
+        parent[i] = i;
+    }
+}
+pair<int, int> x[21];
+int y[21];
+vector<pair<int, int>> edges;
+bool solution()
+{
+
+    init();
+    for (int i = 0; i < n - 1; i++)
+    {
+        auto edge = x[i];
+        int u = find(edge.first);
+        int v = find(edge.second);
+        if (u != v)
+            merge(u, v);
+        else
         {
-            gr[i][v] = gr[node][v] + gr[i][node];
-            gr[v][i] = gr[i][v];
-            dfs(i, v, node);
+            return false;
+        }
+    }
+    return true;
+}
+int numbers_of_sptree = 0;
+void TRY(int i)
+{
+    for (int j = y[i - 1] + 1; j < m; j++)
+    {
+        x[i] = edges[j];
+        y[i] = j;
+        if (i == n - 2)
+        {
+            if (solution())
+            {
+                numbers_of_sptree++;
+            }
+        }
+        else
+        {
+            TRY(i + 1);
         }
     }
 }
-
 int main()
 {
-    freopen("input.inp", "r", stdin);
-    cin >> n;
-    gr.resize(n + 1);
-    w.resize(n + 1);
-    int u, v, m;
-    for (int i = 0; i <= n; i++)
+    cin >> n >> m;
+    int u, v;
+    for (int i = 0; i < m; i++)
     {
-        gr[i].resize(n + 1, 0);
+        cin >> u >> v;
+        edges.push_back({u, v});
     }
-    for (int i = 1; i < n; i++)
+    for (int i = 0; i < m - n + 2; i++)
     {
-        cin >> u >> v >> m;
-        gr[u][v] = m;
-        gr[v][u] = m;
-        w[u].push_back(v);
-        w[v].push_back(u);
+        x[0] = edges[i];
+        y[0] = i;
+        TRY(1);
     }
-
-    int sum;
-    int max_sum = -1;
-    for (int i = 1; i <= n; i++)
-    {
-        for (int v : w[i])
-        {
-            dfs(i, v, i);
-        }
-    }
-
-    for (int i = 1; i <= n; i++)
-    {
-        sum = 0;
-        for (int j = 1; j <= n; j++)
-        {
-
-            sum += gr[i][j];
-        }
-
-        max_sum = max(max_sum, sum);
-    }
-    cout << max_sum << endl;
+    cout << numbers_of_sptree << endl;
 }
